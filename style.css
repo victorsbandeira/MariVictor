@@ -1,0 +1,14 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+.icon {
+    width: 100px; /* Ajuste o tamanho conforme necessário */
+    margin: 0 15px;
+}
+
+body {
+    background-color: #fdf0f0; /* Cor de fundo */
+}
+
+header {
+    background: #f8d7da; /* Cor do cabeçalho */
+}

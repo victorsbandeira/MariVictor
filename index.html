@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viagem Mari e Victor</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .back-btn-top {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            z-index: 10;
+            padding: 8px 22px 8px 16px;
+            background: linear-gradient(90deg, #f8d1e8 0%, #f7b6d2 100%);
+            color: #d16ba5;
+            border: none;
+            border-radius: 18px;
+            font-size: 1em;
+            font-family: inherit;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px #f8e1ec;
+            transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+            text-align: left;
+            outline: none;
+        }
+        .back-btn-top:hover, .back-btn-top:focus {
+            background: linear-gradient(90deg, #f7b6d2 0%, #f8d1e8 100%);
+            color: #c777b9;
+            transform: translateY(-1px) scale(1.04);
+            box-shadow: 0 4px 16px #d16ba5;
+        }
+
+        @media (max-width: 700px) {
+            .back-btn-top {
+                top: 10px;
+                left: 8px;
+                font-size: 0.95em;
+                padding: 6px 12px 6px 10px;
+                border-radius: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="back-btn-top" onclick="window.location.href='principal.html'">
+        &#8592; Voltar ao Menu Principal
+    </button>
+    <div class="banner">
+    </div>
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th><i class="far fa-calendar-alt"></i> Data</th>
+                    <th><i class="fas fa-camera"></i> Atividade Principal</th>
+                    <th><i class="fas fa-heart"></i> Passeios Complementares</th>
+                    <th><i class="fas fa-utensils"></i> Almoço</th>
+                    <th><i class="fas fa-wine-glass-alt"></i> Jantar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><i class="fas fa-plane"></i> 07/05 (Terça)</td>
+                    <td>✈️ Chegada em Porto Alegre às 09:30, retirada do carro às 10:00</td>
+                    <td>🍴 Café da manhã no Mercado Público (Porto Alegre) e almoço na estrada – Galeto Mamma Mia (Gramado) ao chegar. Depois, check-in e descanso</td>
+                    <td>🍴 Galeto Mamma Mia</td>
+                    <td>🍝 Cantina Pastasciutta</td>
+                </tr>
+                <tr>
+                    <td>08/05 (Quarta)</td>
+                    <td>🌉 Skyglass (09:30 às 18:00) – Canela</td>
+                    <td>⛪ Visita à Catedral de Pedra e Estação Campos de Canela</td>
+                    <td>🍽️ Incluído no passeio</td>
+                    <td>🥩 Garfo e Bombacha</td>
+                </tr>
+                <tr>
+                    <td>09/05 (Quinta)</td>
+                    <td>📸 Ensaio fotográfico entre 10:00 e 16:00 (leva cerca de 1h)</td>
+                    <td>📷 Rua Torta, Fonte do Amor Eterno, Igreja São Pedro e Fábrica de Chocolates</td>
+                    <td>🍝 Neni Café e Restaurante</td>
+                    <td>🍕 Porto Cara de Mau</td>
+                </tr>
+                <tr>
+                    <td>10/05 (Sexta – <i class="fas fa-birthday-cake"></i> Aniversário do meu amor ❤️)</td>
+                    <td>🏂 Snowland às 10:30 (até 18:00)</td>
+                    <td>🌄 Mirante Vale do Quilombo (à noite, se não estiver escuro)</td>
+                    <td>🍽️ Almoço no parque Snowland</td>
+                    <td>🥂 George III</td>
+                </tr>
+                <tr>
+                    <td>11/05 (Sábado)</td>
+                    <td>🚂 Maria Fumaça (07:00 às 19:00)</td>
+                    <td>💤 Chegada e descanso (caso conseguirmos sair, vamos no Josephina)</td>
+                    <td>🍽️ Incluído no passeio</td>
+                    <td>🥗 Josephina Café</td>
+                </tr>
+                <tr>
+                    <td>12/05 (Domingo)</td>
+                    <td>🚌 City Tour</td>
+                    <td>🌙 Passeio noturno no Lago Negro (se ainda não tivermos ido)</td>
+                    <td>🍽️ Incluído no tour</td>
+                    <td>🍝 Malbec Restaurante</td>
+                </tr>
+                <tr>
+                    <td>13/05 (Segunda)</td>
+                    <td>🍰 Café Colonial entre 12:00 e 20:00 (ficar ~1h30)</td>
+                    <td>🛍️ Manhã livre: Lago Negro, compras ou retorno a locais favoritos</td>
+                    <td>🧺 Empório Canela</td>
+                    <td>🍫 Doze Gastronomia</td>
+                </tr>
+                <tr>
+                    <td><i class="fas fa-plane"></i> 14/05 (Terça)</td>
+                    <td>🚗 Retorno para Porto Alegre (entrega do carro até 13:00). Voo às 14:30</td>
+                    <td>☕ Café da manhã tranquilo, saída de Gramado por volta das 09:30</td>
+                    <td>☕ Café da manhã no hotel</td>
+                    <td>✈️ Sem jantar – retorno</td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+    <footer>
+        <p>Compartilhado com amor <span style="color: #ff6b6b;">❤️</span></p>
+    </footer>
+</body>
+</html>

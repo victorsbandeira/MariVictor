@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Desde o primeiro olhar até agora...</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #fff6fa 0%, #ffe0f0 100%);
+      position: relative;
+      animation: fadeInBody 1.2s;
+      /* Textura de corações translúcidos */
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        url('data:image/svg+xml;utf8,<svg width="80" height="80" xmlns="http://www.w3.org/2000/svg"><text x="0" y="60" font-size="60" fill="rgba(209,107,165,0.07)">❤</text></svg>');
+      background-repeat: repeat;
+      background-size: 80px 80px;
+      opacity: 0.5;
+    }
+
+    @keyframes fadeInBody {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    h1 {
+      margin-top: 40px;
+      font-size: 2.5em;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 1px;
+      color: #d16ba5;
+      text-shadow: 0 2px 8px #fff0f7;
+      font-family: 'Dancing Script', cursive, sans-serif;
+      animation: fadeInMain 1.2s;
+    }
+
+    @keyframes fadeInMain {
+      from { opacity: 0; transform: translateY(-30px);}
+      to { opacity: 1; transform: none;}
+    }
+
+    .carousel-container {
+      margin: 40px auto 20px auto;
+      background: rgba(255,255,255,0.95);
+      border-radius: 32px;
+      box-shadow: 0 8px 32px rgba(209, 107, 165, 0.10), 0 2px 8px #f8e1ec;
+      width: 95vw;
+      max-width: 520px;
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.3s;
+      padding: 36px 0 36px 0;
+    }
+
+    .carousel-slide {
+      width: 100%;
+      min-height: 370px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: opacity 0.7s;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .carousel-slide.active {
+      opacity: 1;
+      position: relative;
+      z-index: 2;
+      pointer-events: all;
+      animation: fadeInSlide 1s;
+    }
+    @keyframes fadeInSlide {
+      from { opacity: 0; transform: scale(0.97);}
+      to { opacity: 1; transform: none;}
+    }
+
+    .carousel-slide img,
+    .carousel-slide video {
+      display: block;
+      margin: 0 auto;
+      width: 100%;
+      height: auto;
+      max-width: 90%;
+      max-height: 80vh;
+      object-fit: contain;
+      border-radius: 24px;
+      background: #fff;
+      box-shadow: 0 4px 24px #f8e1ec;
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+    @keyframes fadeInMedia {
+      from { opacity: 0; transform: scale(0.95);}
+      to { opacity: 1; transform: none;}
+    }
+
+    .carousel-date-caption {
+      margin-top: 22px;
+      font-size: 1.35em;
+      color: #d16ba5;
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-shadow: 0 2px 8px #fff0f7;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+    .carousel-controls {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      z-index: 3;
+      pointer-events: none;
+      height: 0;
+    }
+
+    .carousel-btn {
+      background: linear-gradient(135deg, #f8e1ec 60%, #d16ba5 100%);
+      border: none;
+      border-radius: 50%;
+      width: 54px;
+      height: 54px;
+      font-size: 2.2em;
+      color: #d16ba5;
+      cursor: pointer;
+      box-shadow: 0 2px 12px #f8e1ec;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s, filter 0.2s;
+      pointer-events: all;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      outline: none;
+      filter: brightness(0.95);
+    }
+    .carousel-btn:hover, .carousel-btn:focus {
+      background: linear-gradient(135deg, #d16ba5 60%, #f8e1ec 100%);
+      color: #fff;
+      transform: scale(1.13);
+      box-shadow: 0 4px 24px #d16ba5;
+      filter: brightness(1.1) drop-shadow(0 0 8px #d16ba5aa);
+    }
+
+    .carousel-indicators {
+      display: flex;
+      justify-content: center;
+      margin: 18px 0 10px 0;
+      gap: 4px;
+      z-index: 4;
+      position: relative;
+    }
+
+    .carousel-indicator {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #d16ba5;
+      opacity: 0.35;
+      cursor: pointer;
+      transition: opacity 0.2s, background 0.2s, box-shadow 0.2s;
+      border: none;
+      box-shadow: none;
+      margin: 0 1px;
+    }
+
+    .carousel-indicator.active {
+      opacity: 1;
+      background: #d16ba5;
+      box-shadow: 0 0 4px #f8d1e8;
+    }
+
+    .back-btn {
+      margin: 40px 0 30px 0;
+      padding: 14px 38px;
+      background: linear-gradient(90deg, #d16ba5 0%, #c777b9 100%);
+      color: #fff;
+      border: none;
+      border-radius: 18px;
+      font-size: 1.1em;
+      font-weight: 500;
+      cursor: pointer;
+      box-shadow: 0 2px 8px #f8e1ec;
+      transition: background 0.2s, transform 0.2s;
+      animation: fadeInMain 1.2s;
+    }
+    .back-btn:hover {
+      background: linear-gradient(90deg, #c777b9 0%, #d16ba5 100%);
+      transform: scale(1.04);
+    }
+
+    .back-btn-top {
+      position: absolute;
+      top: 24px;
+      left: 24px;
+      z-index: 10;
+      padding: 8px 22px 8px 16px;
+      background: linear-gradient(90deg, #f8d1e8 0%, #f7b6d2 100%);
+      color: #d16ba5;
+      border: none;
+      border-radius: 18px;
+      font-size: 1em;
+      font-family: inherit;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px #f8e1ec;
+      transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+      text-align: left;
+      outline: none;
+    }
+    .back-btn-top:hover, .back-btn-top:focus {
+      background: linear-gradient(90deg, #f7b6d2 0%, #f8d1e8 100%);
+      color: #c777b9;
+      transform: translateY(-1px) scale(1.04);
+      box-shadow: 0 4px 16px #d16ba5;
+    }
+
+    @media (max-width: 700px) {
+      .carousel-container {
+        max-width: 99vw;
+        min-height: 260px;
+        border-radius: 18px;
+      }
+      .carousel-slide {
+        min-height: 200px;
+      }
+      .carousel-slide img, .carousel-slide video {
+        max-width: 98vw;
+        max-height: 220px;
+        min-width: 120px;
+        min-height: 120px;
+        border-radius: 14px;
+      }
+      .carousel-btn {
+        width: 38px;
+        height: 38px;
+        font-size: 1.5em;
+      }
+      .carousel-indicator {
+        width: 10px;
+        height: 10px;
+      }
+      .back-btn-top {
+        top: 10px;
+        left: 8px;
+        font-size: 0.95em;
+        padding: 6px 12px 6px 10px;
+        border-radius: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <button class="back-btn-top" onclick="window.location.href='principal.html'">
+    &#8592; Voltar à Página Principal
+  </button>
+  <h1>Desde o primeiro olhar até agora... nossa história em imagens.</h1>
+  <div class="carousel-container" id="carousel">
+    <!-- Slides serão inseridos via JS -->
+    <div class="carousel-controls">
+      <button class="carousel-btn" id="prevBtn" aria-label="Anterior">&#10094;</button>
+      <button class="carousel-btn" id="nextBtn" aria-label="Próximo">&#10095;</button>
+    </div>
+    <!-- Indicadores -->
+    <div class="carousel-indicators" id="carouselIndicators"></div>
+  </div>
+
+  <script>
+    // Lista de arquivos da galeria (adicione aqui os nomes dos arquivos, na ordem desejada)
+    const slides = [
+      // Fotos (ordem cronológica, nomes de exemplo)
+      { type: 'img', src: 'Galeria/30-04-2024 (1).jpg', date: '30/04/2024' },
+      { type: 'img', src: 'Galeria/24-05-2024 (1).jpg', date: '24/05/2024' },
+      { type: 'video', src: 'Galeria/29-05-2024 (1).mp4', date: '29/05/2024' },
+      { type: 'img', src: 'Galeria/29-05-2024 (2).jpg', date: '29/05/2024' },
+      { type: 'img', src: 'Galeria/29-05-2024 (3).jpg', date: '29/05/2024' },
+      { type: 'img', src: 'Galeria/29-05-2024 (4).jpg', date: '29/05/2024' },
+      { type: 'img', src: 'Galeria/29-05-2024 (5).jpg', date: '29/05/2024' },
+      { type: 'img', src: 'Galeria/29-05-2024 (6).jpg', date: '29/05/2024' },
+      { type: 'video', src: 'Galeria/29-05-2024 (7).mp4', date: '29/05/2024' },
+      { type: 'img', src: 'Galeria/30-05-2024 (1).jpg', date: '30/05/2024' },
+      { type: 'img', src: 'Galeria/09-06-2024 (1).jpg', date: '09/06/2024' },
+      { type: 'img', src: 'Galeria/11-06-2024 (1).jpg', date: '11/06/2024' },
+      { type: 'img', src: 'Galeria/11-06-2024 (2).jpg', date: '11/06/2024' },
+      { type: 'img', src: 'Galeria/11-06-2024 (3).jpg', date: '11/06/2024' },
+      { type: 'img', src: 'Galeria/11-06-2024 (4).jpg', date: '11/06/2024' },
+      { type: 'img', src: 'Galeria/07-07-2024 (1).jpg', date: '07/07/2024' },
+      { type: 'img', src: 'Galeria/13-07-2024 (1).jpg', date: '13/07/2024' },
+      { type: 'img', src: 'Galeria/13-07-2024 (2).jpg', date: '13/07/2024' },
+      { type: 'img', src: 'Galeria/13-07-2024 (3).jpg', date: '13/07/2024' },
+      { type: 'img', src: 'Galeria/10-08-2024 (1).jpg', date: '10/08/2024' },
+      { type: 'video', src: 'Galeria/11-08-2024 (1).mp4', date: '11/08/2024' },
+      { type: 'img', src: 'Galeria/11-08-2024 (2).jpg', date: '11/08/2024' },
+      { type: 'img', src: 'Galeria/16-08-2024 (1).jpg', date: '16/08/2024' },
+      { type: 'img', src: 'Galeria/16-08-2024 (2).jpg', date: '16/08/2024' },
+      { type: 'img', src: 'Galeria/07-09-2024 (1).jpg', date: '07/09/2024' },
+      { type: 'img', src: 'Galeria/29-09-2024 (1).jpg', date: '29/09/2024' },
+      { type: 'img', src: 'Galeria/09-10-2024 (2).jpg', date: '09/10/2024' },
+      { type: 'video', src: 'Galeria/09-10-2024 (1).mp4', date: '09/10/2024' },
+      { type: 'img', src: 'Galeria/17-11-2024 (1).jpg', date: '17/11/2024' },
+      { type: 'img', src: 'Galeria/17-11-2024 (2).jpg', date: '17/11/2024' },
+      { type: 'img', src: 'Galeria/13-12-2024 (1).jpg', date: '13/12/2024' },
+      { type: 'img', src: 'Galeria/14-12-2024 (1).jpg', date: '14/12/2024' },
+      { type: 'img', src: 'Galeria/01-01-2025 (1).jpg', date: '01/01/2025' },
+      { type: 'img', src: 'Galeria/19-01-2025 (1).jpg', date: '19/01/2025' },
+      { type: 'img', src: 'Galeria/24-02-2025 (1).jpg', date: '24/02/2025' },
+      { type: 'img', src: 'Galeria/23-04-2025 (1).jpg', date: '23/04/2025' },
+      { type: 'img', src: 'Galeria/25-04-2025 (1).jpg', date: '25/04/2025' },
+      { type: 'img', src: 'Galeria/27-04-2025 (1).jpg', date: '27/04/2025' },
+
+
+
+
+
+      // Vídeos (nomes de exemplo)
+     // { type: 'video', src: 'Galeria/video1.mp4', date: '10-03-2023' },
+     // { type: 'img', src: 'Galeria/01-04-2023 (1).jpg', date: '01-04-2023' },
+     // { type: 'video', src: 'Galeria/video2.mp4', date: '20-04-2023' },
+      // ...adicione mais arquivos conforme necessário
+    ];
+
+    // Função para criar slides dinamicamente
+    function createSlides() {
+      const carousel = document.getElementById('carousel');
+      slides.forEach((slide, idx) => {
+        const div = document.createElement('div');
+        div.className = 'carousel-slide';
+        if (idx === 0) div.classList.add('active');
+        if (slide.type === 'img') {
+          const img = document.createElement('img');
+          img.src = slide.src;
+          img.alt = '';
+          div.appendChild(img);
+        } else if (slide.type === 'video') {
+          const video = document.createElement('video');
+          video.src = slide.src;
+          video.controls = true;
+          video.autoplay = false;
+          video.loop = true;
+          video.style.background = "#f8e1ec";
+          div.appendChild(video);
+        }
+        // Data centralizada embaixo
+        const dateCaption = document.createElement('div');
+        dateCaption.className = 'carousel-date-caption';
+        dateCaption.textContent = slide.date;
+        div.appendChild(dateCaption);
+
+        carousel.insertBefore(div, carousel.querySelector('.carousel-controls'));
+      });
+    }
+
+    // Função para criar indicadores
+    function createIndicators() {
+      const indicators = document.getElementById('carouselIndicators');
+      slides.forEach((_, idx) => {
+        const dot = document.createElement('div');
+        dot.className = 'carousel-indicator' + (idx === 0 ? ' active' : '');
+        dot.addEventListener('click', () => showSlide(idx));
+        indicators.appendChild(dot);
+      });
+    }
+
+    let currentSlide = 0;
+
+    function showSlide(idx) {
+      const allSlides = document.querySelectorAll('.carousel-slide');
+      const allDots = document.querySelectorAll('.carousel-indicator');
+      if (idx < 0) idx = slides.length - 1;
+      if (idx >= slides.length) idx = 0;
+      allSlides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === idx);
+        // Pausa vídeos que não estão ativos
+        if (slide.querySelector('video')) {
+          slide.querySelector('video').pause();
+        }
+      });
+      allDots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === idx);
+      });
+      // Se for vídeo, dá play automático
+      const activeSlide = allSlides[idx];
+      if (slides[idx].type === 'video') {
+        const video = activeSlide.querySelector('video');
+        if (video) video.play();
+      }
+      currentSlide = idx;
+    }
+
+    function nextSlide() {
+      showSlide(currentSlide + 1);
+    }
+    function prevSlide() {
+      showSlide(currentSlide - 1);
+    }
+
+    // Inicialização
+    createSlides();
+    createIndicators();
+    document.getElementById('nextBtn').onclick = () => { nextSlide(); };
+    document.getElementById('prevBtn').onclick = () => { prevSlide(); };
+
+    // Fade-in inicial
+    window.onload = () => {
+      document.body.style.opacity = 1;
+    };
+  </script>
+</body>
+</html>

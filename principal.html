@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Página Principal</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #fff6fa;
+      position: relative;
+      overflow-x: hidden;
+    }
+    .collage {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .collage-img {
+      position: absolute;
+      opacity: 1;
+      filter: none;
+      border-radius: 8px;
+      object-fit: contain;
+      max-width: 12vw;
+      max-height: 12vh;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s;
+      z-index: 0;
+    }
+    .collage-img:hover {
+      transform: scale(1.05) rotate(0deg);
+      opacity: 1;
+      z-index: 10;
+      filter: none;
+    }
+    .collage-blur {
+      position: absolute;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      backdrop-filter: blur(3px);
+      background: rgba(255,246,250,0.5);
+      z-index: 2;
+    }
+    .collage1 { width: 180px; height: 120px; top: 5%; left: 8%; transform: rotate(-7deg); z-index: 1;}
+    .collage2 { width: 140px; height: 100px; top: 12%; left: 22%; transform: rotate(5deg); z-index: 2;}
+    .collage3 { width: 160px; height: 110px; top: 8%; left: 40%; transform: rotate(-3deg); z-index: 3;}
+    .collage4 { width: 120px; height: 90px; top: 18%; left: 60%; transform: rotate(8deg); z-index: 2;}
+    .collage5 { width: 150px; height: 110px; top: 25%; left: 75%; transform: rotate(-5deg); z-index: 1;}
+    .collage6 { width: 130px; height: 90px; top: 35%; left: 10%; transform: rotate(6deg); z-index: 2;}
+    .collage7 { width: 170px; height: 120px; top: 40%; left: 35%; transform: rotate(-8deg); z-index: 3;}
+    .collage8 { width: 120px; height: 80px; top: 50%; left: 60%; transform: rotate(4deg); z-index: 2;}
+    .collage9 { width: 140px; height: 100px; top: 60%; left: 20%; transform: rotate(-6deg); z-index: 1;}
+    .collage10 { width: 160px; height: 110px; top: 70%; left: 70%; transform: rotate(7deg); z-index: 2;}
+    .main-content {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding-top: 60px;
+      padding-bottom: 40px;
+    }
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+    .romantic-title {
+      font-family: 'Dancing Script', cursive, sans-serif;
+      font-size: 2.7em;
+      color: #d16ba5;
+      text-shadow: 0 2px 8px #fff0f7;
+      margin-bottom: 40px;
+      margin-top: 0;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+    .polaroids-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      justify-content: center;
+      align-items: flex-end;
+      margin-bottom: 40px;
+      z-index: 1;
+    }
+    .polaroid {
+      background: #fff;
+      border: 6px solid #fff;
+      border-radius: 18px;
+      box-shadow: 0 8px 32px rgba(209, 107, 165, 0.15), 0 2px 8px #f8e1ec;
+      padding: 10px 10px 30px 10px;
+      width: 170px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      transition: box-shadow 0.3s, transform 0.3s;
+      z-index: 1;
+    }
+    .polaroid img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px #f8e1ec;
+    }
+    .polaroid-caption {
+      margin-top: 10px;
+      font-size: 1em;
+      color: #a14a76;
+      text-align: center;
+      font-style: italic;
+    }
+    .botoes-container {
+      display: flex;
+      flex-direction: row;
+      gap: 24px;
+      margin: 40px 0 30px 0;
+      justify-content: center;
+      z-index: 10;
+    }
+    .btn {
+      padding: 18px 36px;
+      font-size: 1.1em;
+      border: none;
+      border-radius: 14px;
+      background: linear-gradient(90deg, #d16ba5 0%, #c777b9 100%);
+      color: #fff;
+      cursor: pointer;
+      font-weight: 500;
+      box-shadow: 0 2px 8px #f8e1ec;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn:hover {
+      background: linear-gradient(90deg, #c777b9 0%, #d16ba5 100%);
+      transform: scale(1.04);
+    }
+    @media (max-width: 900px) {
+      .polaroids-container { gap: 16px; }
+      .polaroid { width: 120px; padding-bottom: 18px; }
+      .polaroid img { height: 80px; }
+      .romantic-title { font-size: 2em; }
+      .collage-img {
+        width: 60px !important;
+      }
+    }
+    @media (max-width: 600px) {
+      .main-content { padding-top: 30px; }
+      .polaroids-container { flex-direction: column; align-items: center; }
+      .polaroid { width: 90vw; max-width: 220px; }
+    }
+    /* Garantir que o conteúdo principal fique acima */
+    .polaroids-container, .polaroid, .botoes-container, .romantic-title {
+      position: relative;
+      z-index: 5;
+    }
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .collage-img {
+        max-width: 20vw;
+        max-height: 20vh;
+      }
+    }
+  .collage-bg {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.collage-img {
+  position: absolute;
+  border: 4px solid #fff;
+  box-shadow: 0 4px 16px #0002, 0 1px 4px #d16ba5aa;
+  border-radius: 10px;
+  opacity: 1;
+  object-fit: cover;
+  transition: filter 0.3s;
+}
+.collage1 { width: 170px; height: 80px; top: 75%; left: 53%; transform: rotate(-2deg); z-index: 2;}
+.collage2 { width: 180px; height: 120px; top: 33%; left: 61%; transform: rotate(-8deg); z-index: 3;}
+.collage3 { width: 160px; height: 100px; top: 5%; left: 29%; transform: rotate(-8deg); z-index: 4;}
+.collage4 { width: 150px; height: 90px; top: 47%; left: 29%; transform: rotate(4deg); z-index: 1;}
+.collage5 { width: 140px; height: 90px; top: 5%; left: 69%; transform: rotate(2deg); z-index: 3;}
+.collage6 { width: 170px; height: 90px; top: 12%; left: 29%; transform: rotate(6deg); z-index: 2;}
+.collage7 { width: 150px; height: 120px; top: 26%; left: 5%; transform: rotate(-6deg); z-index: 1;}
+.collage8 { width: 120px; height: 110px; top: 26%; left: 5%; transform: rotate(2deg); z-index: 1;}
+.collage9 { width: 130px; height: 100px; top: 26%; left: 77%; transform: rotate(-6deg); z-index: 4;}
+.collage10 { width: 150px; height: 100px; top: 61%; left: 53%; transform: rotate(-2deg); z-index: 1;}
+.collage11 { width: 180px; height: 130px; top: 47%; left: 5%; transform: rotate(-6deg); z-index: 3;}
+.collage12 { width: 140px; height: 110px; top: 5%; left: 61%; transform: rotate(-8deg); z-index: 3;}
+.collage13 { width: 120px; height: 90px; top: 40%; left: 45%; transform: rotate(-2deg); z-index: 3;}
+.collage14 { width: 170px; height: 100px; top: 68%; left: 5%; transform: rotate(4deg); z-index: 4;}
+.collage15 { width: 140px; height: 130px; top: 5%; left: 53%; transform: rotate(-8deg); z-index: 4;}
+.collage16 { width: 120px; height: 120px; top: 40%; left: 29%; transform: rotate(4deg); z-index: 1;}
+.collage17 { width: 150px; height: 80px; top: 33%; left: 77%; transform: rotate(-8deg); z-index: 4;}
+.collage18 { width: 180px; height: 130px; top: 40%; left: 53%; transform: rotate(4deg); z-index: 3;}
+.collage19 { width: 140px; height: 120px; top: 5%; left: 77%; transform: rotate(6deg); z-index: 4;}
+.collage20 { width: 150px; height: 130px; top: 33%; left: 13%; transform: rotate(4deg); z-index: 3;}
+.collage21 { width: 130px; height: 130px; top: 61%; left: 53%; transform: rotate(8deg); z-index: 3;}
+.collage22 { width: 120px; height: 130px; top: 68%; left: 61%; transform: rotate(-8deg); z-index: 3;}
+.collage23 { width: 150px; height: 110px; top: 12%; left: 5%; transform: rotate(-8deg); z-index: 2;}
+.collage24 { width: 120px; height: 90px; top: 61%; left: 29%; transform: rotate(-8deg); z-index: 3;}
+.collage25 { width: 170px; height: 110px; top: 19%; left: 37%; transform: rotate(2deg); z-index: 2;}
+.collage26 { width: 120px; height: 120px; top: 5%; left: 45%; transform: rotate(8deg); z-index: 1;}
+.collage27 { width: 150px; height: 120px; top: 5%; left: 13%; transform: rotate(-4deg); z-index: 1;}
+.collage28 { width: 130px; height: 120px; top: 5%; left: 61%; transform: rotate(-2deg); z-index: 1;}
+.collage29 { width: 160px; height: 90px; top: 19%; left: 37%; transform: rotate(6deg); z-index: 3;}
+.collage30 { width: 130px; height: 120px; top: 19%; left: 21%; transform: rotate(-6deg); z-index: 1;}
+.collage31 { width: 170px; height: 80px; top: 5%; left: 5%; transform: rotate(-8deg); z-index: 1;}
+.collage32 { width: 180px; height: 130px; top: 26%; left: 61%; transform: rotate(6deg); z-index: 2;}
+.collage33 { width: 130px; height: 130px; top: 12%; left: 45%; transform: rotate(8deg); z-index: 3;}
+.collage34 { width: 150px; height: 80px; top: 5%; left: 61%; transform: rotate(2deg); z-index: 2;}
+.collage35 { width: 160px; height: 110px; top: 40%; left: 53%; transform: rotate(6deg); z-index: 3;}
+.collage36 { width: 170px; height: 100px; top: 33%; left: 37%; transform: rotate(2deg); z-index: 2;}
+.collage37 { width: 160px; height: 100px; top: 33%; left: 5%; transform: rotate(-6deg); z-index: 4;}
+.collage38 { width: 120px; height: 90px; top: 19%; left: 69%; transform: rotate(2deg); z-index: 2;}
+.collage39 { width: 150px; height: 130px; top: 19%; left: 5%; transform: rotate(-8deg); z-index: 4;}
+.collage40 { width: 140px; height: 100px; top: 47%; left: 29%; transform: rotate(6deg); z-index: 4;}
+.collage41 { width: 130px; height: 120px; top: 12%; left: 69%; transform: rotate(-8deg); z-index: 2;}
+.collage42 { width: 150px; height: 80px; top: 5%; left: 29%; transform: rotate(-2deg); z-index: 1;}
+.collage43 { width: 140px; height: 120px; top: 12%; left: 77%; transform: rotate(6deg); z-index: 4;}
+.collage44 { width: 180px; height: 90px; top: 5%; left: 13%; transform: rotate(2deg); z-index: 2;}
+.collage45 { width: 120px; height: 100px; top: 47%; left: 13%; transform: rotate(8deg); z-index: 4;}
+.collage46 { width: 130px; height: 120px; top: 61%; left: 69%; transform: rotate(-8deg); z-index: 1;}
+.collage47 { width: 150px; height: 80px; top: 40%; left: 29%; transform: rotate(4deg); z-index: 1;}
+.collage48 { width: 170px; height: 80px; top: 33%; left: 29%; transform: rotate(-2deg); z-index: 4;}
+.collage49 { width: 170px; height: 100px; top: 40%; left: 69%; transform: rotate(-8deg); z-index: 3;}
+.collage50 { width: 120px; height: 100px; top: 19%; left: 29%; transform: rotate(2deg); z-index: 2;}
+.collage51 { width: 130px; height: 90px; top: 68%; left: 29%; transform: rotate(-6deg); z-index: 2;}
+.collage52 { width: 180px; height: 120px; top: 26%; left: 69%; transform: rotate(-4deg); z-index: 2;}
+.collage53 { width: 120px; height: 90px; top: 47%; left: 37%; transform: rotate(8deg); z-index: 2;}
+.collage54 { width: 120px; height: 100px; top: 40%; left: 29%; transform: rotate(-2deg); z-index: 4;}
+.collage55 { width: 180px; height: 80px; top: 26%; left: 77%; transform: rotate(6deg); z-index: 2;}
+.collage56 { width: 150px; height: 100px; top: 75%; left: 37%; transform: rotate(8deg); z-index: 1;}
+.collage57 { width: 150px; height: 130px; top: 47%; left: 53%; transform: rotate(4deg); z-index: 3;}
+.collage58 { width: 140px; height: 90px; top: 19%; left: 37%; transform: rotate(-2deg); z-index: 1;}
+
+@media (max-width: 900px) {
+  .collage-img {
+    width: 60px !important; height: 40px !important;
+  }
+}
+
+.collage-bg {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.collage-img {
+  position: absolute;
+  border: 4px solid #fff;
+  box-shadow: 0 4px 16px #0002, 0 1px 4px #d16ba5aa;
+  border-radius: 10px;
+  opacity: 1;
+  object-fit: cover;
+  transition: filter 0.3s;
+}
+.collage1 { width: 180px; height: 120px; top: 33%; left: 69%; transform: rotate(4deg); z-index: 1;}
+.collage2 { width: 120px; height: 130px; top: 33%; left: 21%; transform: rotate(8deg); z-index: 4;}
+.collage3 { width: 150px; height: 80px; top: 75%; left: 69%; transform: rotate(-6deg); z-index: 2;}
+.collage4 { width: 140px; height: 110px; top: 75%; left: 37%; transform: rotate(-2deg); z-index: 4;}
+.collage5 { width: 180px; height: 100px; top: 75%; left: 37%; transform: rotate(-2deg); z-index: 3;}
+.collage6 { width: 140px; height: 130px; top: 47%; left: 45%; transform: rotate(-6deg); z-index: 4;}
+.collage7 { width: 130px; height: 130px; top: 47%; left: 61%; transform: rotate(-4deg); z-index: 4;}
+.collage8 { width: 130px; height: 100px; top: 75%; left: 45%; transform: rotate(2deg); z-index: 2;}
+.collage9 { width: 180px; height: 100px; top: 12%; left: 61%; transform: rotate(-6deg); z-index: 3;}
+.collage10 { width: 120px; height: 100px; top: 40%; left: 5%; transform: rotate(-6deg); z-index: 1;}
+.collage11 { width: 180px; height: 90px; top: 33%; left: 37%; transform: rotate(-2deg); z-index: 1;}
+.collage12 { width: 140px; height: 130px; top: 47%; left: 21%; transform: rotate(-2deg); z-index: 1;}
+.collage13 { width: 170px; height: 80px; top: 40%; left: 29%; transform: rotate(4deg); z-index: 1;}
+.collage14 { width: 160px; height: 90px; top: 19%; left: 37%; transform: rotate(-8deg); z-index: 2;}
+.collage15 { width: 120px; height: 90px; top: 19%; left: 5%; transform: rotate(-6deg); z-index: 2;}
+.collage16 { width: 140px; height: 110px; top: 33%; left: 21%; transform: rotate(-6deg); z-index: 2;}
+.collage17 { width: 120px; height: 100px; top: 5%; left: 29%; transform: rotate(-8deg); z-index: 4;}
+.collage18 { width: 180px; height: 100px; top: 33%; left: 13%; transform: rotate(2deg); z-index: 3;}
+.collage19 { width: 130px; height: 80px; top: 12%; left: 45%; transform: rotate(6deg); z-index: 3;}
+.collage20 { width: 160px; height: 120px; top: 47%; left: 21%; transform: rotate(-4deg); z-index: 4;}
+.collage21 { width: 150px; height: 100px; top: 19%; left: 53%; transform: rotate(-8deg); z-index: 3;}
+.collage22 { width: 130px; height: 130px; top: 33%; left: 13%; transform: rotate(-6deg); z-index: 1;}
+.collage23 { width: 180px; height: 100px; top: 61%; left: 77%; transform: rotate(4deg); z-index: 1;}
+.collage24 { width: 160px; height: 110px; top: 75%; left: 61%; transform: rotate(6deg); z-index: 3;}
+.collage25 { width: 130px; height: 80px; top: 19%; left: 5%; transform: rotate(-8deg); z-index: 4;}
+.collage26 { width: 150px; height: 110px; top: 75%; left: 69%; transform: rotate(-4deg); z-index: 4;}
+.collage27 { width: 160px; height: 80px; top: 75%; left: 21%; transform: rotate(8deg); z-index: 2;}
+.collage28 { width: 180px; height: 90px; top: 75%; left: 69%; transform: rotate(4deg); z-index: 2;}
+.collage29 { width: 120px; height: 130px; top: 75%; left: 37%; transform: rotate(2deg); z-index: 1;}
+.collage30 { width: 160px; height: 120px; top: 75%; left: 61%; transform: rotate(-6deg); z-index: 4;}
+.collage31 { width: 180px; height: 100px; top: 26%; left: 45%; transform: rotate(6deg); z-index: 1;}
+.collage32 { width: 170px; height: 110px; top: 54%; left: 61%; transform: rotate(6deg); z-index: 2;}
+.collage33 { width: 170px; height: 90px; top: 47%; left: 69%; transform: rotate(-8deg); z-index: 1;}
+.collage34 { width: 170px; height: 120px; top: 68%; left: 45%; transform: rotate(6deg); z-index: 3;}
+.collage35 { width: 130px; height: 100px; top: 68%; left: 53%; transform: rotate(2deg); z-index: 4;}
+.collage36 { width: 130px; height: 90px; top: 26%; left: 53%; transform: rotate(8deg); z-index: 2;}
+.collage37 { width: 160px; height: 80px; top: 75%; left: 5%; transform: rotate(-4deg); z-index: 4;}
+.collage38 { width: 140px; height: 110px; top: 12%; left: 53%; transform: rotate(4deg); z-index: 1;}
+.collage39 { width: 180px; height: 120px; top: 75%; left: 29%; transform: rotate(2deg); z-index: 4;}
+.collage40 { width: 150px; height: 130px; top: 33%; left: 29%; transform: rotate(2deg); z-index: 1;}
+.collage41 { width: 170px; height: 120px; top: 5%; left: 61%; transform: rotate(-6deg); z-index: 4;}
+.collage42 { width: 130px; height: 110px; top: 19%; left: 37%; transform: rotate(4deg); z-index: 2;}
+.collage43 { width: 160px; height: 90px; top: 68%; left: 29%; transform: rotate(-4deg); z-index: 1;}
+.collage44 { width: 170px; height: 130px; top: 54%; left: 77%; transform: rotate(-6deg); z-index: 4;}
+.collage45 { width: 140px; height: 130px; top: 19%; left: 13%; transform: rotate(-4deg); z-index: 3;}
+.collage46 { width: 140px; height: 100px; top: 61%; left: 53%; transform: rotate(2deg); z-index: 1;}
+.collage47 { width: 140px; height: 110px; top: 33%; left: 13%; transform: rotate(6deg); z-index: 3;}
+.collage48 { width: 120px; height: 110px; top: 26%; left: 69%; transform: rotate(2deg); z-index: 4;}
+.collage49 { width: 160px; height: 110px; top: 75%; left: 45%; transform: rotate(4deg); z-index: 3;}
+.collage50 { width: 140px; height: 110px; top: 47%; left: 53%; transform: rotate(2deg); z-index: 4;}
+.collage51 { width: 160px; height: 100px; top: 54%; left: 13%; transform: rotate(-8deg); z-index: 1;}
+.collage52 { width: 120px; height: 120px; top: 5%; left: 53%; transform: rotate(-2deg); z-index: 1;}
+.collage53 { width: 150px; height: 120px; top: 19%; left: 45%; transform: rotate(2deg); z-index: 1;}
+.collage54 { width: 130px; height: 130px; top: 40%; left: 21%; transform: rotate(8deg); z-index: 1;}
+.collage55 { width: 180px; height: 100px; top: 61%; left: 21%; transform: rotate(-6deg); z-index: 4;}
+.collage56 { width: 170px; height: 120px; top: 40%; left: 61%; transform: rotate(6deg); z-index: 3;}
+.collage57 { width: 170px; height: 130px; top: 47%; left: 21%; transform: rotate(2deg); z-index: 1;}
+.collage58 { width: 150px; height: 90px; top: 12%; left: 53%; transform: rotate(8deg); z-index: 2;}
+.collage59 { width: 160px; height: 120px; top: 75%; left: 5%; transform: rotate(2deg); z-index: 1;}
+.collage60 { width: 180px; height: 130px; top: 33%; left: 21%; transform: rotate(2deg); z-index: 4;}
+.collage61 { width: 130px; height: 130px; top: 33%; left: 77%; transform: rotate(6deg); z-index: 3;}
+.collage62 { width: 150px; height: 130px; top: 5%; left: 21%; transform: rotate(-6deg); z-index: 3;}
+.collage63 { width: 150px; height: 100px; top: 47%; left: 61%; transform: rotate(-2deg); z-index: 2;}
+.collage64 { width: 150px; height: 100px; top: 26%; left: 37%; transform: rotate(-6deg); z-index: 3;}
+.collage65 { width: 120px; height: 110px; top: 75%; left: 61%; transform: rotate(-8deg); z-index: 3;}
+.collage66 { width: 170px; height: 100px; top: 19%; left: 61%; transform: rotate(-4deg); z-index: 1;}
+.collage67 { width: 120px; height: 130px; top: 33%; left: 13%; transform: rotate(2deg); z-index: 2;}
+.collage68 { width: 180px; height: 90px; top: 47%; left: 13%; transform: rotate(-4deg); z-index: 1;}
+.collage69 { width: 170px; height: 80px; top: 75%; left: 53%; transform: rotate(-6deg); z-index: 3;}
+.collage70 { width: 120px; height: 130px; top: 12%; left: 5%; transform: rotate(8deg); z-index: 2;}
+.collage71 { width: 140px; height: 100px; top: 26%; left: 29%; transform: rotate(6deg); z-index: 1;}
+.collage72 { width: 150px; height: 130px; top: 26%; left: 29%; transform: rotate(-8deg); z-index: 3;}
+.collage73 { width: 170px; height: 120px; top: 19%; left: 45%; transform: rotate(4deg); z-index: 1;}
+.collage74 { width: 150px; height: 110px; top: 33%; left: 77%; transform: rotate(4deg); z-index: 1;}
+.collage75 { width: 170px; height: 100px; top: 54%; left: 45%; transform: rotate(4deg); z-index: 4;}
+.collage76 { width: 170px; height: 130px; top: 68%; left: 45%; transform: rotate(2deg); z-index: 4;}
+.collage77 { width: 150px; height: 80px; top: 61%; left: 45%; transform: rotate(4deg); z-index: 2;}
+.collage78 { width: 140px; height: 90px; top: 61%; left: 61%; transform: rotate(2deg); z-index: 3;}
+.collage79 { width: 180px; height: 80px; top: 5%; left: 61%; transform: rotate(6deg); z-index: 1;}
+.collage80 { width: 150px; height: 100px; top: 26%; left: 77%; transform: rotate(-6deg); z-index: 3;}
+.collage81 { width: 140px; height: 90px; top: 75%; left: 21%; transform: rotate(-4deg); z-index: 3;}
+.collage82 { width: 140px; height: 90px; top: 33%; left: 69%; transform: rotate(6deg); z-index: 3;}
+.collage83 { width: 120px; height: 100px; top: 19%; left: 13%; transform: rotate(-2deg); z-index: 4;}
+.collage84 { width: 170px; height: 100px; top: 40%; left: 5%; transform: rotate(4deg); z-index: 3;}
+.collage85 { width: 130px; height: 90px; top: 61%; left: 5%; transform: rotate(-2deg); z-index: 4;}
+.collage86 { width: 170px; height: 130px; top: 54%; left: 29%; transform: rotate(-6deg); z-index: 4;}
+.collage87 { width: 160px; height: 80px; top: 26%; left: 29%; transform: rotate(-2deg); z-index: 4;}
+.collage88 { width: 120px; height: 110px; top: 68%; left: 45%; transform: rotate(2deg); z-index: 2;}
+.collage89 { width: 180px; height: 120px; top: 75%; left: 53%; transform: rotate(-6deg); z-index: 4;}
+.collage90 { width: 120px; height: 110px; top: 68%; left: 29%; transform: rotate(4deg); z-index: 1;}
+.collage91 { width: 180px; height: 90px; top: 61%; left: 45%; transform: rotate(2deg); z-index: 1;}
+.collage92 { width: 140px; height: 120px; top: 12%; left: 29%; transform: rotate(4deg); z-index: 1;}
+.collage93 { width: 160px; height: 110px; top: 5%; left: 21%; transform: rotate(4deg); z-index: 2;}
+.collage94 { width: 150px; height: 80px; top: 47%; left: 37%; transform: rotate(2deg); z-index: 2;}
+.collage95 { width: 160px; height: 90px; top: 75%; left: 69%; transform: rotate(-6deg); z-index: 4;}
+.collage96 { width: 130px; height: 90px; top: 47%; left: 29%; transform: rotate(6deg); z-index: 3;}
+.collage97 { width: 130px; height: 130px; top: 26%; left: 77%; transform: rotate(-8deg); z-index: 1;}
+.collage98 { width: 150px; height: 130px; top: 5%; left: 5%; transform: rotate(-4deg); z-index: 4;}
+.collage99 { width: 150px; height: 130px; top: 19%; left: 5%; transform: rotate(8deg); z-index: 4;}
+.collage100 { width: 150px; height: 130px; top: 19%; left: 5%; transform: rotate(6deg); z-index: 1;}
+
+@media (max-width: 900px) {
+  .collage-img {
+    width: 60px !important; height: 40px !important;
+  }
+}
+
+</style>
+</head>
+<body>
+<div class="collage-bg">
+  <img src="GaleriaPrincipal/20240601_155810.jpg" class="collage-img collage1" alt="">
+  <img src="GaleriaPrincipal/20240608_170828.jpg" class="collage-img collage2" alt="">
+  <img src="GaleriaPrincipal/20240611_201418.jpg" class="collage-img collage3" alt="">
+  <img src="GaleriaPrincipal/20240611_210222.jpg" class="collage-img collage4" alt="">
+  <img src="GaleriaPrincipal/20240611_210314.jpg" class="collage-img collage5" alt="">
+  <img src="GaleriaPrincipal/20240611_210319.jpg" class="collage-img collage6" alt="">
+  <img src="GaleriaPrincipal/20240611_220049.jpg" class="collage-img collage7" alt="">
+  <img src="GaleriaPrincipal/20240622_181144.jpg" class="collage-img collage8" alt="">
+  <img src="GaleriaPrincipal/20240622_181244.jpg" class="collage-img collage9" alt="">
+  <img src="GaleriaPrincipal/20240622_181453.jpg" class="collage-img collage10" alt="">
+  <img src="GaleriaPrincipal/20240628_223643.jpg" class="collage-img collage11" alt="">
+  <img src="GaleriaPrincipal/20240628_223646.jpg" class="collage-img collage12" alt="">
+  <img src="GaleriaPrincipal/20240629_140520.jpg" class="collage-img collage13" alt="">
+  <img src="GaleriaPrincipal/20240629_140524.jpg" class="collage-img collage14" alt="">
+  <img src="GaleriaPrincipal/20240629_140846.jpg" class="collage-img collage15" alt="">
+  <img src="GaleriaPrincipal/20240630_181857.jpg" class="collage-img collage16" alt="">
+  <img src="GaleriaPrincipal/20240707_162354.jpg" class="collage-img collage17" alt="">
+  <img src="GaleriaPrincipal/20240713_101657.jpg" class="collage-img collage18" alt="">
+  <img src="GaleriaPrincipal/20240713_101704.jpg" class="collage-img collage19" alt="">
+  <img src="GaleriaPrincipal/20240713_101705.jpg" class="collage-img collage20" alt="">
+  <img src="GaleriaPrincipal/20240713_101910.jpg" class="collage-img collage21" alt="">
+  <img src="GaleriaPrincipal/20240729_174005.jpg" class="collage-img collage22" alt="">
+  <img src="GaleriaPrincipal/20240810_122042.jpg" class="collage-img collage23" alt="">
+  <img src="GaleriaPrincipal/20240810_122250.jpg" class="collage-img collage24" alt="">
+  <img src="GaleriaPrincipal/20240810_150443.jpg" class="collage-img collage25" alt="">
+  <img src="GaleriaPrincipal/20240810_150828.jpg" class="collage-img collage26" alt="">
+  <img src="GaleriaPrincipal/20240810_150954.jpg" class="collage-img collage27" alt="">
+  <img src="GaleriaPrincipal/20240810_171211.jpg" class="collage-img collage28" alt="">
+  <img src="GaleriaPrincipal/20240811_145434.jpg" class="collage-img collage29" alt="">
+  <img src="GaleriaPrincipal/20240811_150028.jpg" class="collage-img collage30" alt="">
+  <img src="GaleriaPrincipal/20240811_162930.jpg" class="collage-img collage31" alt="">
+  <img src="GaleriaPrincipal/20240831_171624.jpg" class="collage-img collage32" alt="">
+  <img src="GaleriaPrincipal/20240831_184532.jpg" class="collage-img collage33" alt="">
+  <img src="GaleriaPrincipal/20240831_184744.jpg" class="collage-img collage34" alt="">
+  <img src="GaleriaPrincipal/20240831_185054.jpg" class="collage-img collage35" alt="">
+  <img src="GaleriaPrincipal/20240901_202640.jpg" class="collage-img collage36" alt="">
+  <img src="GaleriaPrincipal/20240928_203615.jpg" class="collage-img collage37" alt="">
+  <img src="GaleriaPrincipal/20240928_203742.jpg" class="collage-img collage38" alt="">
+  <img src="GaleriaPrincipal/20240928_204448.jpg" class="collage-img collage39" alt="">
+  <img src="GaleriaPrincipal/20240928_204604.jpg" class="collage-img collage40" alt="">
+  <img src="GaleriaPrincipal/20240929_204402.jpg" class="collage-img collage41" alt="">
+  <img src="GaleriaPrincipal/20240929_205724.jpg" class="collage-img collage42" alt="">
+  <img src="GaleriaPrincipal/20241123_215041.jpg" class="collage-img collage43" alt="">
+  <img src="GaleriaPrincipal/20241207_204540.jpg" class="collage-img collage44" alt="">
+  <img src="GaleriaPrincipal/20241207_205206.jpg" class="collage-img collage45" alt="">
+  <img src="GaleriaPrincipal/IMG-20240530-WA0047.jpg" class="collage-img collage46" alt="">
+  <img src="GaleriaPrincipal/IMG-20240530-WA0049.jpg" class="collage-img collage47" alt="">
+  <img src="GaleriaPrincipal/IMG-20240530-WA0064.jpg" class="collage-img collage48" alt="">
+  <img src="GaleriaPrincipal/IMG-20240530-WA0074.jpg" class="collage-img collage49" alt="">
+  <img src="GaleriaPrincipal/IMG-20240609-WA0020.jpg" class="collage-img collage50" alt="">
+  <img src="GaleriaPrincipal/IMG-20240609-WA0024.jpg" class="collage-img collage51" alt="">
+  <img src="GaleriaPrincipal/IMG-20240609-WA0033.jpg" class="collage-img collage52" alt="">
+  <img src="GaleriaPrincipal/IMG-20240609-WA0034.jpg" class="collage-img collage53" alt="">
+  <img src="GaleriaPrincipal/IMG-20240609-WA0093.jpg" class="collage-img collage54" alt="">
+  <img src="GaleriaPrincipal/IMG-20240612-WA0002.jpg" class="collage-img collage55" alt="">
+  <img src="GaleriaPrincipal/IMG-20240612-WA0003.jpg" class="collage-img collage56" alt="">
+  <img src="GaleriaPrincipal/IMG-20240614-WA0067.jpg" class="collage-img collage57" alt="">
+  <img src="GaleriaPrincipal/IMG-20240616-WA0038.jpg" class="collage-img collage58" alt="">
+  <img src="GaleriaPrincipal/IMG-20240616-WA0044.jpg" class="collage-img collage59" alt="">
+  <img src="GaleriaPrincipal/IMG-20240629-WA0089.jpeg" class="collage-img collage60" alt="">
+  <img src="GaleriaPrincipal/IMG-20240701-WA0005.jpg" class="collage-img collage61" alt="">
+  <img src="GaleriaPrincipal/IMG-20240701-WA0012.jpg" class="collage-img collage62" alt="">
+  <img src="GaleriaPrincipal/IMG-20240702-WA0005.jpg" class="collage-img collage63" alt="">
+  <img src="GaleriaPrincipal/IMG-20240702-WA0096.jpg" class="collage-img collage64" alt="">
+  <img src="GaleriaPrincipal/IMG-20240703-WA0078.jpg" class="collage-img collage65" alt="">
+  <img src="GaleriaPrincipal/IMG-20240707-WA0022.jpeg" class="collage-img collage66" alt="">
+  <img src="GaleriaPrincipal/IMG-20240707-WA0052.jpeg" class="collage-img collage67" alt="">
+  <img src="GaleriaPrincipal/IMG-20240709-WA0023.jpg" class="collage-img collage68" alt="">
+  <img src="GaleriaPrincipal/IMG-20240713-WA0000.jpeg" class="collage-img collage69" alt="">
+  <img src="GaleriaPrincipal/IMG-20240713-WA0007.jpg" class="collage-img collage70" alt="">
+  <img src="GaleriaPrincipal/IMG-20240713-WA0057.jpg" class="collage-img collage71" alt="">
+  <img src="GaleriaPrincipal/IMG-20240713-WA0073.jpg" class="collage-img collage72" alt="">
+  <img src="GaleriaPrincipal/IMG-20240713-WA0075.jpg" class="collage-img collage73" alt="">
+  <img src="GaleriaPrincipal/IMG-20240713-WA0097.jpg" class="collage-img collage74" alt="">
+  <img src="GaleriaPrincipal/IMG-20240713-WA0099.jpg" class="collage-img collage75" alt="">
+  <img src="GaleriaPrincipal/IMG-20240719-WA0001.jpg" class="collage-img collage76" alt="">
+  <img src="GaleriaPrincipal/IMG-20240806-WA0083.jpg" class="collage-img collage77" alt="">
+  <img src="GaleriaPrincipal/IMG-20240810-WA0032.jpg" class="collage-img collage78" alt="">
+  <img src="GaleriaPrincipal/IMG-20240811-WA0398.jpg" class="collage-img collage79" alt="">
+  <img src="GaleriaPrincipal/IMG-20240811-WA0404.jpg" class="collage-img collage80" alt="">
+  <img src="GaleriaPrincipal/IMG-20240811-WA0406.jpg" class="collage-img collage81" alt="">
+  <img src="GaleriaPrincipal/IMG-20240811-WA0439.jpg" class="collage-img collage82" alt="">
+  <img src="GaleriaPrincipal/IMG-20240811-WA0447.jpg" class="collage-img collage83" alt="">
+  <img src="GaleriaPrincipal/IMG-20240811-WA0478.jpg" class="collage-img collage84" alt="">
+  <img src="GaleriaPrincipal/IMG-20240811-WA0480.jpg" class="collage-img collage85" alt="">
+  <img src="GaleriaPrincipal/IMG-20240813-WA0044.jpg" class="collage-img collage86" alt="">
+  <img src="GaleriaPrincipal/IMG-20240905-WA0020.jpg" class="collage-img collage87" alt="">
+  <img src="GaleriaPrincipal/IMG-20240905-WA0021.jpg" class="collage-img collage88" alt="">
+  <img src="GaleriaPrincipal/IMG-20240907-WA0112.jpg" class="collage-img collage89" alt="">
+  <img src="GaleriaPrincipal/IMG-20240907-WA0132.jpg" class="collage-img collage90" alt="">
+  <img src="GaleriaPrincipal/IMG-20241008-WA0014.jpg" class="collage-img collage91" alt="">
+  <img src="GaleriaPrincipal/IMG-20241031-WA0010.jpg" class="collage-img collage92" alt="">
+  <img src="GaleriaPrincipal/IMG-20241110-WA0083.jpg" class="collage-img collage93" alt="">
+  <img src="GaleriaPrincipal/IMG-20241110-WA0115.jpg" class="collage-img collage94" alt="">
+  <img src="GaleriaPrincipal/IMG-20241110-WA0121.jpg" class="collage-img collage95" alt="">
+  <img src="GaleriaPrincipal/IMG-20241117-WA0017.jpg" class="collage-img collage96" alt="">
+  <img src="GaleriaPrincipal/IMG-20241117-WA0022.jpg" class="collage-img collage97" alt="">
+  <img src="GaleriaPrincipal/IMG-20241215-WA0032.jpg" class="collage-img collage98" alt="">
+  <img src="GaleriaPrincipal/IMG-20250427-WA0175.jpg" class="collage-img collage99" alt="">
+  <img src="GaleriaPrincipal/Wo ai ni.jpg" class="collage-img collage100" alt="">
+</div>
+<div class="collage-bg">
+
+</div>
+<div class="collage-bg">
+
+    <div class="collage-blur"></div>
+  </div>
+  <div class="main-content" style="position:relative; z-index:10;">
+    <h1 class="romantic-title">Nosso Amor em Pequenos Momentos 💕</h1>
+    <div class="polaroids-container">
+      <div class="polaroid" style="transform: rotate(-4deg);">
+        <img src="GaleriaPrincipal/polaroids/02-03-2024.jpg" alt="02-03-2024">
+        <div class="polaroid-caption">02-03-2024</div>
+      </div>
+      <div class="polaroid" style="transform: rotate(2deg);">
+        <img src="GaleriaPrincipal/polaroids/30-04-2024.jpg" alt="30-04-2024">
+        <div class="polaroid-caption">30-04-2024</div>
+      </div>
+      <div class="polaroid" style="transform: rotate(-6deg);">
+        <img src="GaleriaPrincipal/polaroids/13-05-2024.jpg" alt="13-05-2024">
+        <div class="polaroid-caption">13-05-2024</div>
+      </div>
+      <div class="polaroid" style="transform: rotate(3deg);">
+        <img src="GaleriaPrincipal/polaroids/29-05-2024.jpg" alt="29-05-2024">
+        <div class="polaroid-caption">29-05-2024</div>
+      </div>
+    </div>
+    <div class="botoes-container">
+      <button class="btn" onclick="window.location.href='nosdesdeentao.html'">
+        Nós, desde então! ❣️
+      </button>
+      <button class="btn" onclick="window.location.href='index.html'">
+        Roteiro da Viagem ✈️
+      </button>
+    </div>
+  </div>
+<script>
+const totalImages = 58;
+const imageList = [];
+for (let i = 1; i <= totalImages; i++) {
+  imageList.push(`GaleriaPrincipal/img${i.toString().padStart(2, '0')}.jpg`);
+}
+
+// Parâmetros do grid
+const cols = 10; // número de colunas (ajuste conforme seu gosto)
+const rows = 8;  // número de linhas (ajuste conforme seu gosto)
+const collage = document.getElementById('collage-bg');
+const usedCells = new Set();
+
+function randomBetween(a, b) {
+  return a + Math.random() * (b - a);
+}
+
+let imgIndex = 0;
+for (let row = 0; row < rows; row++) {
+  for (let col = 0; col < cols; col++) {
+    if (imgIndex >= imageList.length) break;
+    // Posição base da célula
+    let top = (row * (100 / rows)) + randomBetween(-2, 2);   // % da tela, com leve variação
+    let left = (col * (100 / cols)) + randomBetween(-2, 2);  // % da tela, com leve variação
+
+    // Cria imagem
+    const img = document.createElement('img');
+    img.src = imageList[imgIndex];
+    img.alt = '';
+    img.className = 'collage-img';
+    img.style.top = top + 'vh';
+    img.style.left = left + 'vw';
+    img.style.transform = `rotate(${randomBetween(-10, 10)}deg)`;
+    collage.appendChild(img);
+
+    img.loading = "lazy";
+
+    imgIndex++;
+  }
+}
+
+document.querySelectorAll('.collage-img').forEach(img => {
+  img.onerror = function() {
+    console.log('Imagem com erro:', img.src);
+  }
+});
+</script>
+</body>
+</html>
